@@ -8,15 +8,14 @@ const CreateTeacher: React.FC = () => {
 
     const [createTeacher, { data }] = useCreateTeacherMutation()
 
-    const onClick = (e: React.MouseEvent<HTMLIonButtonElement, MouseEvent>) => {
+    const onClick = async (e: React.MouseEvent<HTMLIonButtonElement, MouseEvent>) => {
         e.preventDefault()
 
-        createTeacher({ variables: { name } })
-        console.log(data?.createTeacher.name)
+        await createTeacher({ variables: { name } })
     }
 
     if (data) {
-        <Redirect to='/quizzes' />
+        return <Redirect to='/quizzes' />
     }
 
     return (

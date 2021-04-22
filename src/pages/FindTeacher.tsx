@@ -12,7 +12,6 @@ const FindTeacher: React.FC = () => {
         e.preventDefault()
 
         getTeacher({ variables: { name } })
-        console.log(data)
     }
 
     if (loading) {
@@ -20,7 +19,7 @@ const FindTeacher: React.FC = () => {
     }
 
     if (data) {
-        <Redirect to='/quizzes' />
+        return <Redirect to='/quizzes' />
     }
 
     return (
