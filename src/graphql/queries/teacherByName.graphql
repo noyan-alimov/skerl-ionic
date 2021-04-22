@@ -1,0 +1,10 @@
+query TeacherByName($name: String!) {
+	teacherByName(name: $name) {
+		id
+		name
+		quizzes {
+			id
+			name
+		}
+	}
+}

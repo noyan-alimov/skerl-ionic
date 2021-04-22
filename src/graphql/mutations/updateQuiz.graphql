@@ -1,0 +1,6 @@
+mutation UpdateQuiz($id: Int!, $name: String!) {
+	updateQuiz(id: $id, name: $name) {
+		id
+		name
+	}
+}

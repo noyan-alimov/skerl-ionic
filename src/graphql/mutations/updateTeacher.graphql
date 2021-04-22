@@ -1,0 +1,6 @@
+mutation UpdateTeacher($id: Int!, $name: String!) {
+	updateTeacher(id: $id, name: $name) {
+		id
+		name
+	}
+}
