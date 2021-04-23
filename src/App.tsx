@@ -28,19 +28,21 @@ import FindTeacher from './pages/FindTeacher';
 import Quizzes from './pages/Quizzes';
 
 const App: React.FC = () => {
+  const [userId, setUserId] = React.useState<number | undefined>(undefined)
+
   return (
     <IonApp>
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
             <Route exact path="/createTeacher">
-              <CreateTeacher />
+              <CreateTeacher setUserId={setUserId} />
             </Route>
             <Route exact path="/findTeacher">
-              <FindTeacher />
+              <FindTeacher setUserId={setUserId} />
             </Route>
             <Route exact path="/quizzes">
-              <Quizzes />
+              <Quizzes userId={userId} />
             </Route>
             <Route exact path="/">
               <Redirect to="/createTeacher" />

@@ -4,7 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -98,7 +98,7 @@ export type Quiz = {
   __typename?: 'Quiz';
   id: Scalars['Float'];
   name: Scalars['String'];
-  questions: Array<Question>;
+  questions?: Array<Question>;
 };
 
 export type QuizInput = {
@@ -120,10 +120,12 @@ export type CreateQuizMutationVariables = Exact<{
 
 export type CreateQuizMutation = (
   { __typename?: 'Mutation' }
-  & { createQuiz: (
-    { __typename?: 'Quiz' }
-    & Pick<Quiz, 'id' | 'name'>
-  ) }
+  & {
+    createQuiz: (
+      { __typename?: 'Quiz' }
+      & Pick<Quiz, 'id' | 'name'>
+    )
+  }
 );
 
 export type CreateTeacherMutationVariables = Exact<{
@@ -133,10 +135,12 @@ export type CreateTeacherMutationVariables = Exact<{
 
 export type CreateTeacherMutation = (
   { __typename?: 'Mutation' }
-  & { createTeacher: (
-    { __typename?: 'Teacher' }
-    & Pick<Teacher, 'id' | 'name'>
-  ) }
+  & {
+    createTeacher: (
+      { __typename?: 'Teacher' }
+      & Pick<Teacher, 'id' | 'name'>
+    )
+  }
 );
 
 export type DeleteQuizMutationVariables = Exact<{
@@ -157,10 +161,12 @@ export type UpdateQuizMutationVariables = Exact<{
 
 export type UpdateQuizMutation = (
   { __typename?: 'Mutation' }
-  & { updateQuiz: (
-    { __typename?: 'Quiz' }
-    & Pick<Quiz, 'id' | 'name'>
-  ) }
+  & {
+    updateQuiz: (
+      { __typename?: 'Quiz' }
+      & Pick<Quiz, 'id' | 'name'>
+    )
+  }
 );
 
 export type UpdateTeacherMutationVariables = Exact<{
@@ -171,10 +177,46 @@ export type UpdateTeacherMutationVariables = Exact<{
 
 export type UpdateTeacherMutation = (
   { __typename?: 'Mutation' }
-  & { updateTeacher: (
-    { __typename?: 'Teacher' }
-    & Pick<Teacher, 'id' | 'name'>
-  ) }
+  & {
+    updateTeacher: (
+      { __typename?: 'Teacher' }
+      & Pick<Teacher, 'id' | 'name'>
+    )
+  }
+);
+
+export type QuizQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type QuizQuery = (
+  { __typename?: 'Query' }
+  & {
+    quiz: (
+      { __typename?: 'Quiz' }
+      & Pick<Quiz, 'id' | 'name'>
+      & {
+        questions: Array<(
+          { __typename?: 'Question' }
+          & Pick<Question, 'id' | 'question'>
+        )>
+      }
+    )
+  }
+);
+
+export type QuizzesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QuizzesQuery = (
+  { __typename?: 'Query' }
+  & {
+    quizzes: Array<(
+      { __typename?: 'Quiz' }
+      & Pick<Quiz, 'id' | 'name'>
+    )>
+  }
 );
 
 export type TeacherQueryVariables = Exact<{
@@ -184,14 +226,18 @@ export type TeacherQueryVariables = Exact<{
 
 export type TeacherQuery = (
   { __typename?: 'Query' }
-  & { teacher: (
-    { __typename?: 'Teacher' }
-    & Pick<Teacher, 'id' | 'name'>
-    & { quizzes: Array<(
-      { __typename?: 'Quiz' }
-      & Pick<Quiz, 'id' | 'name'>
-    )> }
-  ) }
+  & {
+    teacher: (
+      { __typename?: 'Teacher' }
+      & Pick<Teacher, 'id' | 'name'>
+      & {
+        quizzes: Array<(
+          { __typename?: 'Quiz' }
+          & Pick<Quiz, 'id' | 'name'>
+        )>
+      }
+    )
+  }
 );
 
 export type TeacherByNameQueryVariables = Exact<{
@@ -201,14 +247,18 @@ export type TeacherByNameQueryVariables = Exact<{
 
 export type TeacherByNameQuery = (
   { __typename?: 'Query' }
-  & { teacherByName: (
-    { __typename?: 'Teacher' }
-    & Pick<Teacher, 'id' | 'name'>
-    & { quizzes: Array<(
-      { __typename?: 'Quiz' }
-      & Pick<Quiz, 'id' | 'name'>
-    )> }
-  ) }
+  & {
+    teacherByName: (
+      { __typename?: 'Teacher' }
+      & Pick<Teacher, 'id' | 'name'>
+      & {
+        quizzes: Array<(
+          { __typename?: 'Quiz' }
+          & Pick<Quiz, 'id' | 'name'>
+        )>
+      }
+    )
+  }
 );
 
 export type TeachersQueryVariables = Exact<{ [key: string]: never; }>;
@@ -216,10 +266,12 @@ export type TeachersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type TeachersQuery = (
   { __typename?: 'Query' }
-  & { teachers: Array<(
-    { __typename?: 'Teacher' }
-    & Pick<Teacher, 'id' | 'name'>
-  )> }
+  & {
+    teachers: Array<(
+      { __typename?: 'Teacher' }
+      & Pick<Teacher, 'id' | 'name'>
+    )>
+  }
 );
 
 
@@ -251,9 +303,9 @@ export type CreateQuizMutationFn = Apollo.MutationFunction<CreateQuizMutation, C
  * });
  */
 export function useCreateQuizMutation(baseOptions?: Apollo.MutationHookOptions<CreateQuizMutation, CreateQuizMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateQuizMutation, CreateQuizMutationVariables>(CreateQuizDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateQuizMutation, CreateQuizMutationVariables>(CreateQuizDocument, options);
+}
 export type CreateQuizMutationHookResult = ReturnType<typeof useCreateQuizMutation>;
 export type CreateQuizMutationResult = Apollo.MutationResult<CreateQuizMutation>;
 export type CreateQuizMutationOptions = Apollo.BaseMutationOptions<CreateQuizMutation, CreateQuizMutationVariables>;
@@ -285,9 +337,9 @@ export type CreateTeacherMutationFn = Apollo.MutationFunction<CreateTeacherMutat
  * });
  */
 export function useCreateTeacherMutation(baseOptions?: Apollo.MutationHookOptions<CreateTeacherMutation, CreateTeacherMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTeacherMutation, CreateTeacherMutationVariables>(CreateTeacherDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateTeacherMutation, CreateTeacherMutationVariables>(CreateTeacherDocument, options);
+}
 export type CreateTeacherMutationHookResult = ReturnType<typeof useCreateTeacherMutation>;
 export type CreateTeacherMutationResult = Apollo.MutationResult<CreateTeacherMutation>;
 export type CreateTeacherMutationOptions = Apollo.BaseMutationOptions<CreateTeacherMutation, CreateTeacherMutationVariables>;
@@ -316,9 +368,9 @@ export type DeleteQuizMutationFn = Apollo.MutationFunction<DeleteQuizMutation, D
  * });
  */
 export function useDeleteQuizMutation(baseOptions?: Apollo.MutationHookOptions<DeleteQuizMutation, DeleteQuizMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteQuizMutation, DeleteQuizMutationVariables>(DeleteQuizDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteQuizMutation, DeleteQuizMutationVariables>(DeleteQuizDocument, options);
+}
 export type DeleteQuizMutationHookResult = ReturnType<typeof useDeleteQuizMutation>;
 export type DeleteQuizMutationResult = Apollo.MutationResult<DeleteQuizMutation>;
 export type DeleteQuizMutationOptions = Apollo.BaseMutationOptions<DeleteQuizMutation, DeleteQuizMutationVariables>;
@@ -351,9 +403,9 @@ export type UpdateQuizMutationFn = Apollo.MutationFunction<UpdateQuizMutation, U
  * });
  */
 export function useUpdateQuizMutation(baseOptions?: Apollo.MutationHookOptions<UpdateQuizMutation, UpdateQuizMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateQuizMutation, UpdateQuizMutationVariables>(UpdateQuizDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateQuizMutation, UpdateQuizMutationVariables>(UpdateQuizDocument, options);
+}
 export type UpdateQuizMutationHookResult = ReturnType<typeof useUpdateQuizMutation>;
 export type UpdateQuizMutationResult = Apollo.MutationResult<UpdateQuizMutation>;
 export type UpdateQuizMutationOptions = Apollo.BaseMutationOptions<UpdateQuizMutation, UpdateQuizMutationVariables>;
@@ -386,12 +438,87 @@ export type UpdateTeacherMutationFn = Apollo.MutationFunction<UpdateTeacherMutat
  * });
  */
 export function useUpdateTeacherMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTeacherMutation, UpdateTeacherMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTeacherMutation, UpdateTeacherMutationVariables>(UpdateTeacherDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateTeacherMutation, UpdateTeacherMutationVariables>(UpdateTeacherDocument, options);
+}
 export type UpdateTeacherMutationHookResult = ReturnType<typeof useUpdateTeacherMutation>;
 export type UpdateTeacherMutationResult = Apollo.MutationResult<UpdateTeacherMutation>;
 export type UpdateTeacherMutationOptions = Apollo.BaseMutationOptions<UpdateTeacherMutation, UpdateTeacherMutationVariables>;
+export const QuizDocument = gql`
+    query Quiz($id: Int!) {
+  quiz(id: $id) {
+    id
+    name
+    questions {
+      id
+      question
+    }
+  }
+}
+    `;
+
+/**
+ * __useQuizQuery__
+ *
+ * To run a query within a React component, call `useQuizQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuizQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuizQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useQuizQuery(baseOptions: Apollo.QueryHookOptions<QuizQuery, QuizQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<QuizQuery, QuizQueryVariables>(QuizDocument, options);
+}
+export function useQuizLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuizQuery, QuizQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<QuizQuery, QuizQueryVariables>(QuizDocument, options);
+}
+export type QuizQueryHookResult = ReturnType<typeof useQuizQuery>;
+export type QuizLazyQueryHookResult = ReturnType<typeof useQuizLazyQuery>;
+export type QuizQueryResult = Apollo.QueryResult<QuizQuery, QuizQueryVariables>;
+export const QuizzesDocument = gql`
+    query Quizzes {
+  quizzes {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useQuizzesQuery__
+ *
+ * To run a query within a React component, call `useQuizzesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuizzesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuizzesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useQuizzesQuery(baseOptions?: Apollo.QueryHookOptions<QuizzesQuery, QuizzesQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<QuizzesQuery, QuizzesQueryVariables>(QuizzesDocument, options);
+}
+export function useQuizzesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuizzesQuery, QuizzesQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<QuizzesQuery, QuizzesQueryVariables>(QuizzesDocument, options);
+}
+export type QuizzesQueryHookResult = ReturnType<typeof useQuizzesQuery>;
+export type QuizzesLazyQueryHookResult = ReturnType<typeof useQuizzesLazyQuery>;
+export type QuizzesQueryResult = Apollo.QueryResult<QuizzesQuery, QuizzesQueryVariables>;
 export const TeacherDocument = gql`
     query Teacher($id: Int!) {
   teacher(id: $id) {
@@ -422,13 +549,13 @@ export const TeacherDocument = gql`
  * });
  */
 export function useTeacherQuery(baseOptions: Apollo.QueryHookOptions<TeacherQuery, TeacherQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TeacherQuery, TeacherQueryVariables>(TeacherDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TeacherQuery, TeacherQueryVariables>(TeacherDocument, options);
+}
 export function useTeacherLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TeacherQuery, TeacherQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TeacherQuery, TeacherQueryVariables>(TeacherDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TeacherQuery, TeacherQueryVariables>(TeacherDocument, options);
+}
 export type TeacherQueryHookResult = ReturnType<typeof useTeacherQuery>;
 export type TeacherLazyQueryHookResult = ReturnType<typeof useTeacherLazyQuery>;
 export type TeacherQueryResult = Apollo.QueryResult<TeacherQuery, TeacherQueryVariables>;
@@ -462,13 +589,13 @@ export const TeacherByNameDocument = gql`
  * });
  */
 export function useTeacherByNameQuery(baseOptions: Apollo.QueryHookOptions<TeacherByNameQuery, TeacherByNameQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TeacherByNameQuery, TeacherByNameQueryVariables>(TeacherByNameDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TeacherByNameQuery, TeacherByNameQueryVariables>(TeacherByNameDocument, options);
+}
 export function useTeacherByNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TeacherByNameQuery, TeacherByNameQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TeacherByNameQuery, TeacherByNameQueryVariables>(TeacherByNameDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TeacherByNameQuery, TeacherByNameQueryVariables>(TeacherByNameDocument, options);
+}
 export type TeacherByNameQueryHookResult = ReturnType<typeof useTeacherByNameQuery>;
 export type TeacherByNameLazyQueryHookResult = ReturnType<typeof useTeacherByNameLazyQuery>;
 export type TeacherByNameQueryResult = Apollo.QueryResult<TeacherByNameQuery, TeacherByNameQueryVariables>;
@@ -497,13 +624,13 @@ export const TeachersDocument = gql`
  * });
  */
 export function useTeachersQuery(baseOptions?: Apollo.QueryHookOptions<TeachersQuery, TeachersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TeachersQuery, TeachersQueryVariables>(TeachersDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TeachersQuery, TeachersQueryVariables>(TeachersDocument, options);
+}
 export function useTeachersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TeachersQuery, TeachersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TeachersQuery, TeachersQueryVariables>(TeachersDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TeachersQuery, TeachersQueryVariables>(TeachersDocument, options);
+}
 export type TeachersQueryHookResult = ReturnType<typeof useTeachersQuery>;
 export type TeachersLazyQueryHookResult = ReturnType<typeof useTeachersLazyQuery>;
 export type TeachersQueryResult = Apollo.QueryResult<TeachersQuery, TeachersQueryVariables>;

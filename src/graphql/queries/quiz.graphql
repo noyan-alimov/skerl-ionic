@@ -1,0 +1,10 @@
+query Quiz($id: Int!) {
+	quiz(id: $id) {
+		id
+		name
+		questions {
+			id
+			question
+		}
+	}
+}

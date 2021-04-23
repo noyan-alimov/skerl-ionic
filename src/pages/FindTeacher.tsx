@@ -3,14 +3,18 @@ import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonPage, IonSpinne
 import { useTeacherByNameLazyQuery } from '../generated/graphql';
 import { Redirect } from 'react-router-dom';
 
-const FindTeacher: React.FC = () => {
+interface FindTeacherProps {
+    setUserId: (userId: number) => void
+}
+
+const FindTeacher = (props: FindTeacherProps) => {
+    const { setUserId } = props
+
     const [name, setName] = React.useState<string>('')
 
     const [getTeacher, { loading, error, data }] = useTeacherByNameLazyQuery()
 
-    const onClick = (e: React.MouseEvent<HTMLIonButtonElement, MouseEvent>) => {
-        e.preventDefault()
-
+    const onClick = () => {
         getTeacher({ variables: { name } })
     }
 
@@ -19,6 +23,7 @@ const FindTeacher: React.FC = () => {
     }
 
     if (data) {
+        setUserId(data.teacherByName.id)
         return <Redirect to='/quizzes' />
     }
 
@@ -48,7 +53,7 @@ const FindTeacher: React.FC = () => {
                 </div>
                 {error && (
                     <IonItem>
-                        <IonText>Error finding your account</IonText>
+                        <IonText>Error finding your account: {error.message}</IonText>
                     </IonItem>
                 )}
             </IonContent>

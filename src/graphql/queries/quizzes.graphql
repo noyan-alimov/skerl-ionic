@@ -1,0 +1,6 @@
+query Quizzes {
+	quizzes {
+		id
+		name
+	}
+}

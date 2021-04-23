@@ -3,18 +3,23 @@ import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonPage, IonTitle,
 import { useCreateTeacherMutation } from '../generated/graphql';
 import { Redirect } from 'react-router-dom';
 
-const CreateTeacher: React.FC = () => {
+interface CreateTeacherProps {
+    setUserId: (userId: number) => void
+}
+
+const CreateTeacher = (props: CreateTeacherProps) => {
+    const { setUserId } = props
+
     const [name, setName] = React.useState<string>('')
 
     const [createTeacher, { data }] = useCreateTeacherMutation()
 
-    const onClick = async (e: React.MouseEvent<HTMLIonButtonElement, MouseEvent>) => {
-        e.preventDefault()
-
+    const onClick = async () => {
         await createTeacher({ variables: { name } })
     }
 
     if (data) {
+        setUserId(data.createTeacher.id)
         return <Redirect to='/quizzes' />
     }
 
