@@ -1,0 +1,7 @@
+mutation CreateAnswer($input: AnswerInput!) {
+	createAnswer(input: $input) {
+		id
+		answer
+		isCorrect
+	}
+}

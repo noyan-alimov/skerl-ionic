@@ -1,0 +1,7 @@
+mutation UpdateAnswer($id: Int!, $isCorrect: Boolean, $answer: String) {
+	updateAnswer(id: $id, isCorrect: $isCorrect, answer: $answer) {
+		id
+		answer
+		isCorrect
+	}
+}

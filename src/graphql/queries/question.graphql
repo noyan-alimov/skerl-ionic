@@ -1,0 +1,11 @@
+query Question($id: Int!) {
+	question(id: $id) {
+		id
+		question
+		answers {
+			id
+			answer
+			isCorrect
+		}
+	}
+}
