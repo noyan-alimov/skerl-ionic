@@ -1,7 +1,6 @@
 import React from 'react'
 import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useCreateTeacherMutation } from '../generated/graphql';
-import { Redirect } from 'react-router-dom';
 
 interface CreateTeacherProps {
     setUserId: (userId: number) => void
@@ -20,7 +19,6 @@ const CreateTeacher = (props: CreateTeacherProps) => {
 
     if (data) {
         setUserId(data.createTeacher.id)
-        return <Redirect to='/quizzes' />
     }
 
     return (

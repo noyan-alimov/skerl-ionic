@@ -30,36 +30,41 @@ import Quizzes from './pages/Quizzes';
 const App: React.FC = () => {
   const [userId, setUserId] = React.useState<number | undefined>(undefined)
 
+  if (!userId) {
+    return (
+      <IonApp>
+        <IonReactRouter>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route exact path="/createTeacher">
+                <CreateTeacher setUserId={setUserId} />
+              </Route>
+              <Route exact path="/findTeacher">
+                <FindTeacher setUserId={setUserId} />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/createTeacher" />
+              </Route>
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="createTeacher" href="/createTeacher">
+                <IonIcon icon={personCircle} />
+                <IonLabel>Create Account</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="findTeacher" href="/findTeacher">
+                <IonIcon icon={informationCircle} />
+                <IonLabel>Find Existing Account</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </IonReactRouter>
+      </IonApp>
+    )
+  }
+
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route exact path="/createTeacher">
-              <CreateTeacher setUserId={setUserId} />
-            </Route>
-            <Route exact path="/findTeacher">
-              <FindTeacher setUserId={setUserId} />
-            </Route>
-            <Route exact path="/quizzes">
-              <Quizzes userId={userId} />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/createTeacher" />
-            </Route>
-          </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="createTeacher" href="/createTeacher">
-              <IonIcon icon={personCircle} />
-              <IonLabel>Create Account</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="findTeacher" href="/findTeacher">
-              <IonIcon icon={informationCircle} />
-              <IonLabel>Find Existing Account</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
-      </IonReactRouter>
+      <Quizzes userId={userId} />
     </IonApp>
   )
 }

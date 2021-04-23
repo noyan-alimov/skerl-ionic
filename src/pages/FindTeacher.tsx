@@ -1,7 +1,6 @@
 import React from 'react'
 import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonPage, IonSpinner, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import { useTeacherByNameLazyQuery } from '../generated/graphql';
-import { Redirect } from 'react-router-dom';
 
 interface FindTeacherProps {
     setUserId: (userId: number) => void
@@ -24,7 +23,6 @@ const FindTeacher = (props: FindTeacherProps) => {
 
     if (data) {
         setUserId(data.teacherByName.id)
-        return <Redirect to='/quizzes' />
     }
 
     return (
