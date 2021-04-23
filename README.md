@@ -8,3 +8,4 @@ Quiz App that lets teachers create quizzes so that students would complete them.
 - React
 - Ionic
 - Apollo GraphQL Client
+- Codegen to generate types for graphql
